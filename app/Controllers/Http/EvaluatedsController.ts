@@ -15,7 +15,7 @@ export default class EvaluatedsController {
       name: body.name,
       email: body.email,
       phone: body.phone,
-      dateofbirth: body.dateofbirth,
+      dateOfBirth: body.dateofbirth,
       sex: body.sex,
     })
     if (evaluated.$isPersisted) {
