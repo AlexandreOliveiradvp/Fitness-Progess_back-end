@@ -22,16 +22,16 @@ export default class Review extends BaseModel {
   public perContBicRg: number
 
   @column()
-  public perForeamrLf: number
+  public perForamrLf: number
 
   @column()
-  public perForeamrRg: number
+  public perForamrRg: number
 
   @column()
-  public perThighHigtLf: number
+  public perThighHighLf: number
 
   @column()
-  public perThighHigtRg: number
+  public perThighHighRg: number
 
   @column()
   public perThighMidLf: number
@@ -40,16 +40,73 @@ export default class Review extends BaseModel {
   public perThighMidRg: number
 
   @column()
-  public perThighlowLf: number
+  public perThighLowLf: number
 
   @column()
-  public perThighlowRg: number
+  public perThighLowRg: number
 
   @column()
   public perCalfLf: number
 
   @column()
   public perCalfRg: number
+
+  @column()
+  public perAbdomem: number
+
+  @column()
+  public perWaist: number
+
+  @column()
+  public perHip: number
+
+  @column()
+  public perChest: number
+
+  @column()
+  public perShoulder: number
+
+  @column()
+  public skinSubscapular: number
+
+  @column()
+  public skinTriceps: number
+
+  @column()
+  public skinMidaxillary: number
+
+  @column()
+  public skinChest: number
+
+  @column()
+  public skinSuprailiac: number
+
+  @column()
+  public skinAbdominal: number
+
+  @column()
+  public skinThing: number
+
+  @column()
+  public height: number
+
+  @column()
+  public weight: number
+
+  @column()
+  public imc: number
+
+  @column()
+  public fatPercent: number
+
+  @column()
+  public leanWeight: number
+
+  @column()
+  public fatWeight: number
+
+  @column()
+  public idealWeight: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
