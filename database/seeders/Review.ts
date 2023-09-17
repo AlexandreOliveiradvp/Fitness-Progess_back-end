@@ -31,7 +31,7 @@ export default class extends BaseSeeder {
         skinMidaxillary: 12,
         skinSuprailiac: 22,
         skinAbdominal: 34,
-        skinThing: 25,
+        skinThigh: 25,
         height: 1.77,
         weight: 88.3,
         imc: 28.3,

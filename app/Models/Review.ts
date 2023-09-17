@@ -85,7 +85,7 @@ export default class Review extends BaseModel {
   public skinAbdominal: number
 
   @column()
-  public skinThing: number
+  public skinThigh: number
 
   @column()
   public height: number
@@ -115,5 +115,5 @@ export default class Review extends BaseModel {
   public updatedAt: DateTime
 
   @hasMany(() => Evaluated)
-  public evaluated: HasMany < typeof Evaluated >
+  public evaluated: HasMany<typeof Evaluated>
 }

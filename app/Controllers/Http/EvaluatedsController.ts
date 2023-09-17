@@ -21,7 +21,7 @@ export default class EvaluatedsController {
     if (evaluated.$isPersisted) {
       response.status(201)
       return {
-        message: 'Successful operation',
+        message: 'Evaluated created successfully.',
       }
     } else {
       response.status(500)

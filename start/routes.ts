@@ -21,8 +21,12 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
+  /* Evaluated Routes */
   Route.get('/evaluated', 'EvaluatedsController.showEvaluated')
   Route.post('/evaluated', 'EvaluatedsController.registerEvaluated')
   Route.delete('/evaluated/:id', 'EvaluatedsController.deleteEvaluated')
+  /* Reviews Routes */
   Route.get('/reviews', 'ReviewsController.showReviews')
+  Route.get('/reviews/:id', 'ReviewsController.showById')
+  Route.post('/reviews', 'ReviewsController.registerReview')
 }).prefix('/api')

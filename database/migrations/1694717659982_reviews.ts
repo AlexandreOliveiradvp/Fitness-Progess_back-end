@@ -32,7 +32,7 @@ export default class extends BaseSchema {
       table.float('skin_chest')
       table.float('skin_suprailiac')
       table.float('skin_abdominal')
-      table.float('skin_thing')
+      table.float('skin_thigh')
       table.float('height')
       table.float('weight')
       table.float('imc')
