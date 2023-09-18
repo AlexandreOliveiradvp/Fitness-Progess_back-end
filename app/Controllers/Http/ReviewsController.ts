@@ -26,6 +26,28 @@ export default class ReviewsController {
   }
   public async registerReview({ request, response }: HttpContextContract) {
     const body = request.body()
+    const sumFolds: number =
+      body.skinSubscapular +
+      body.skinTriceps +
+      body.skinMidaxillary +
+      body.skinChest +
+      body.skinSuprailiac +
+      body.skinAbdominal +
+      body.skinThigh
+    const fatPercentStr: string = (
+      0.29669 * sumFolds -
+      0.00043 * Math.pow(sumFolds, 2) +
+      0.02963 * 34 +
+      0.4072
+    ).toFixed(2)
+    const fatPercent: number = parseFloat(fatPercentStr)
+    const leanWeight: number = body.weight - body.weight * (fatPercent / 100)
+    const fatWeightStr: string = (body.weight - leanWeight).toFixed(2)
+    const imcStr: string = (body.weight / (body.height * body.height)).toFixed(2)
+    const idealWeightStr: string = (24.9 * (body.height * body.height)).toFixed(2)
+    const fatWeight: number = parseFloat(fatWeightStr)
+    const imc: number = parseFloat(imcStr)
+    const idealWeight: number = parseFloat(idealWeightStr)
     const reviewsCreated = await Review.create({
       idEvaluated: body.idEvaluated,
       perRelaxBicLf: body.perRelaxBicLf,
@@ -56,11 +78,11 @@ export default class ReviewsController {
       skinThigh: body.thigh,
       height: body.height,
       weight: body.weight,
-      imc: body.imc,
-      fatPercent: body.fatPercent,
-      leanWeight: body.leanWeight,
-      fatWeight: body.fatWeight,
-      idealWeight: body.idealWeight,
+      imc: imc,
+      fatPercent: fatPercent,
+      leanWeight: leanWeight,
+      fatWeight: fatWeight,
+      idealWeight: idealWeight,
     })
     if (reviewsCreated.$isPersisted) {
       response.status(201)
