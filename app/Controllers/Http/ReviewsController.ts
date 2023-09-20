@@ -75,7 +75,7 @@ export default class ReviewsController {
       skinChest: body.skinChest,
       skinSuprailiac: body.skinSuprailiac,
       skinAbdominal: body.skinAbdominal,
-      skinThigh: body.thigh,
+      skinThigh: body.skinThigh,
       height: body.height,
       weight: body.weight,
       imc: imc,
