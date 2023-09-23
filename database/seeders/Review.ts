@@ -34,6 +34,7 @@ export default class extends BaseSeeder {
         skinThigh: 25,
         height: 1.77,
         weight: 88.3,
+        years: 33,
         imc: 28.3,
         fatPercent: 20.63,
         leanWeight: 70.9,

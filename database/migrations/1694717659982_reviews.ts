@@ -35,6 +35,7 @@ export default class extends BaseSchema {
       table.float('skin_thigh')
       table.float('height')
       table.float('weight')
+      table.integer('years')
       table.float('imc')
       table.float('fat_percent')
       table.float('lean_weight')

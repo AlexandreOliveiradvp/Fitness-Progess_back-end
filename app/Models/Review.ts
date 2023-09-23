@@ -94,6 +94,9 @@ export default class Review extends BaseModel {
   public weight: number
 
   @column()
+  public years: number
+
+  @column()
   public imc: number
 
   @column()
