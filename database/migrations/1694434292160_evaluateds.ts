@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.string('name')
       table.string('email')
       table.string('phone')
-      table.timestamp('dateofbirth')
+      table.date('date_of_birth')
       table.string('sex')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

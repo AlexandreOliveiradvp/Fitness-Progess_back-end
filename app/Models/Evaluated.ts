@@ -15,7 +15,7 @@ export default class Evaluated extends BaseModel {
   public phone: string
 
   @column()
-  public dateofbirth: string
+  public dateOfBirth: string
 
   @column()
   public sex: string

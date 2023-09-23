@@ -15,13 +15,13 @@ export default class EvaluatedsController {
       name: body.name,
       email: body.email,
       phone: body.phone,
-      dateofbirth: body.dateofbirth,
+      dateOfBirth: body.dateOfBirth,
       sex: body.sex,
     })
     if (evaluated.$isPersisted) {
       response.status(201)
       return {
-        message: 'Successful operation',
+        message: 'Evaluated created successfully.',
       }
     } else {
       response.status(500)

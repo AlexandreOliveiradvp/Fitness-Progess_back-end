@@ -7,14 +7,14 @@ export default class extends BaseSeeder {
         name: 'Alexandre Oliveira',
         email: 'alexandreolitec@hotmail',
         phone: '(21)96444-8046',
-        dateofbirth: '28/02/1990',
+        dateOfBirth: '1990-02-28',
         sex: 'male',
       },
       {
         name: 'Aline Oliveira',
         email: 'alineolitec@hotmail',
         phone: '(21)96700-4070',
-        dateofbirth: '02/03/1989',
+        dateOfBirth: '1989-03-02',
         sex: 'female',
       },
     ])
