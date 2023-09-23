@@ -24,6 +24,21 @@ export default class ReviewsController {
       }
     }
   }
+  public async showByEvaluatedId({ request, response }: HttpContextContract) {
+    const evaluatedId: number = request.param('evaluatedId')
+    const review = await Review.findBy('idEvaluated', evaluatedId)
+    if (review) {
+      response.status(200)
+      return {
+        review: review,
+      }
+    } else {
+      response.status(404)
+      return {
+        review: 'Review not found',
+      }
+    }
+  }
   public async registerReview({ request, response }: HttpContextContract) {
     const body = request.body()
     const sumFolds: number =
@@ -93,6 +108,22 @@ export default class ReviewsController {
       response.status(500)
       return {
         message: 'Internal server error',
+      }
+    }
+  }
+  public async deleteReview({ request, response }: HttpContextContract) {
+    const idDelete: number = request.param('id')
+    try {
+      const reviewDeleted = await Review.findOrFail(idDelete)
+      await reviewDeleted.delete()
+      response.status(200)
+      return {
+        message: 'Review delete successfully',
+      }
+    } catch {
+      response.status(404)
+      return {
+        message: 'Review not found',
       }
     }
   }
