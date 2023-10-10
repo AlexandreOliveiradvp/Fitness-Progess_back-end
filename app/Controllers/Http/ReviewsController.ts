@@ -1,106 +1,14 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Review from 'App/Models/Review'
-import Evaluated from 'App/Models/Evaluated'
-import { DateTime } from 'luxon'
+/* import Evaluated from 'App/Models/Evaluated' */
+/* import { DateTime } from 'luxon' */
 
 export default class ReviewsController {
   public async showReviews({ response }: HttpContextContract) {
-    interface ReviewWithEvaluatedName {
-      id: number
-      idEvaluated: number
-      perRelaxBicLf: number
-      perRelaxBicRg: number
-      perContBicLf: number
-      perContBicRg: number
-      perForamrLf: number
-      perForamrRg: number
-      perThighHighLf: number
-      perThighHighRg: number
-      perThighMidLf: number
-      perThighMidRg: number
-      perThighLowLf: number
-      perThighLowRg: number
-      perCalfLf: number
-      perCalfRg: number
-      perAbdomem: number
-      perWaist: number
-      perHip: number
-      perChest: number
-      perShoulder: number
-      skinSubscapular: number
-      skinTriceps: number
-      skinMidaxillary: number
-      skinChest: number
-      skinSuprailiac: number
-      skinAbdominal: number
-      skinThigh: number
-      height: number
-      weight: number
-      years: number
-      imc: number
-      fatPercent: number
-      leanWeight: number
-      fatWeight: number
-      idealWeight: number
-      createdAt: DateTime
-      updatedAt: DateTime
-      evaluatedName: string
-    }
-
-    let reviews = await Review.all()
-    const reviewsWithEvaluatedName: ReviewWithEvaluatedName[] = []
-
-    for (const element of reviews) {
-      const dataEvaluated = await Evaluated.find(element.idEvaluated)
-      if (dataEvaluated) {
-        const reviewAllData = {
-          id: element.id,
-          idEvaluated: element.idEvaluated,
-          perRelaxBicLf: element.perRelaxBicLf,
-          perRelaxBicRg: element.perRelaxBicRg,
-          perContBicLf: element.perContBicLf,
-          perContBicRg: element.perContBicRg,
-          perForamrLf: element.perForamrLf,
-          perForamrRg: element.perForamrRg,
-          perThighHighLf: element.perThighHighLf,
-          perThighHighRg: element.perThighHighRg,
-          perThighMidLf: element.perThighMidLf,
-          perThighMidRg: element.perThighMidRg,
-          perThighLowLf: element.perThighLowLf,
-          perThighLowRg: element.perThighLowRg,
-          perCalfLf: element.perCalfLf,
-          perCalfRg: element.perCalfRg,
-          perAbdomem: element.perAbdomem,
-          perWaist: element.perWaist,
-          perHip: element.perHip,
-          perChest: element.perChest,
-          perShoulder: element.perShoulder,
-          skinSubscapular: element.skinSubscapular,
-          skinTriceps: element.skinTriceps,
-          skinMidaxillary: element.skinMidaxillary,
-          skinChest: element.skinChest,
-          skinSuprailiac: element.skinSuprailiac,
-          skinAbdominal: element.skinAbdominal,
-          skinThigh: element.skinThigh,
-          height: element.height,
-          weight: element.weight,
-          years: element.years,
-          imc: element.imc,
-          fatPercent: element.fatPercent,
-          leanWeight: element.leanWeight,
-          fatWeight: element.fatPercent,
-          idealWeight: element.idealWeight,
-          createdAt: element.createdAt,
-          updatedAt: element.updatedAt,
-          evaluatedName: dataEvaluated.name,
-        }
-        reviewsWithEvaluatedName.push(reviewAllData)
-      }
-    }
-
+    const reviewEvaluated = await Review.query().preload('evaluated')
     response.status(200)
     return {
-      reviews: reviewsWithEvaluatedName,
+      reviews: reviewEvaluated,
     }
   }
   public async showById({ request, response }: HttpContextContract) {
