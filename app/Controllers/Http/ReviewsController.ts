@@ -43,61 +43,88 @@ export default class ReviewsController {
   }
   public async registerReview({ request, response }: HttpContextContract) {
     const body = request.body()
+    const review = {
+      weight: parseInt(body.weight),
+      years: parseInt(body.years),
+      height: parseFloat(body.height),
+      perBicRelaxRg: parseFloat(body.perBicRelaxRg),
+      perBicRelaxLf: parseFloat(body.perBicRelaxLf),
+      perBicContRg: parseFloat(body.perBicContRg),
+      perBicContLf: parseFloat(body.perBicContLf),
+      perForarmRg: parseFloat(body.perForarmRg),
+      perForarmLf: parseFloat(body.perForarmLf),
+      perThighHighRg: parseFloat(body.perThighHighRg),
+      perThighHighLf: parseFloat(body.perThighHighLf),
+      perThighMidRg: parseFloat(body.perThighMidRg),
+      perThighMidLf: parseFloat(body.perThighMidLf),
+      perThighLowRg: parseFloat(body.perThighLowRg),
+      perThighLowLf: parseFloat(body.perThighLowLf),
+      perCalfRg: parseFloat(body.perCalfRg),
+      perCalfLf: parseFloat(body.perCalfLf),
+      perAbdomem: parseFloat(body.perAbdomem),
+      perWaist: parseFloat(body.perWaist),
+      perHip: parseFloat(body.perHip),
+      perChest: parseFloat(body.perChest),
+      perShoulder: parseFloat(body.perShoulder),
+      skinSubscapular: parseInt(body.skinSubscapular),
+      skinTriceps: parseInt(body.skinTriceps),
+      skinChest: parseInt(body.skinChest),
+      skinMidaxillary: parseInt(body.skinMidaxillary),
+      skinSuprailiac: parseInt(body.skinSuprailiac),
+      skinAbdominal: parseInt(body.skinAbdominal),
+      skinThigh: parseInt(body.skinThigh),
+    }
     const sumFolds: number =
-      body.skinSubscapular +
-      body.skinTriceps +
-      body.skinMidaxillary +
-      body.skinChest +
-      body.skinSuprailiac +
-      body.skinAbdominal +
-      body.skinThigh
-    const fatPercentStr: string = (
+      review.skinSubscapular +
+      review.skinTriceps +
+      review.skinMidaxillary +
+      review.skinChest +
+      review.skinSuprailiac +
+      review.skinAbdominal +
+      review.skinThigh
+    const fatPercent = (
       0.29669 * sumFolds -
       0.00043 * Math.pow(sumFolds, 2) +
-      0.02963 * body.years +
+      0.02963 * review.years +
       0.4072
     ).toFixed(2)
-    const fatPercent: number = parseFloat(fatPercentStr)
-    const leanWeight: number = body.weight - body.weight * (fatPercent / 100)
-    const fatWeightStr: string = (body.weight - leanWeight).toFixed(2)
-    const imcStr: string = (body.weight / (body.height * body.height)).toFixed(2)
-    const idealWeightStr: string = (24.9 * (body.height * body.height)).toFixed(2)
-    const fatWeight: number = parseFloat(fatWeightStr)
-    const imc: number = parseFloat(imcStr)
-    const idealWeight: number = parseFloat(idealWeightStr)
+    const leanWeight: any = review.weight - review.weight * (parseFloat(fatPercent) / 100)
+    const fatWeight: any = (review.weight - leanWeight).toFixed(2)
+    const imc: any = (review.weight / (review.height * review.height)).toFixed(2)
+    const idealWeight: any = (24.9 * (review.height * review.height)).toFixed(2)
     const reviewsCreated = await Review.create({
-      idEvaluated: body.idEvaluated,
-      perRelaxBicLf: body.perRelaxBicLf,
-      perRelaxBicRg: body.perRelaxBicRg,
-      perContBicLf: body.perContBicLf,
-      perContBicRg: body.perContBicRg,
-      perForamrLf: body.perForamrLf,
-      perForamrRg: body.perForamrRg,
-      perThighHighLf: body.perThighHighLf,
-      perThighHighRg: body.perThighHighRg,
-      perThighMidLf: body.perThighMidLf,
-      perThighMidRg: body.perThighMidRg,
-      perThighLowLf: body.perThighLowLf,
-      perThighLowRg: body.perThighLowRg,
-      perCalfLf: body.perCalfLf,
-      perCalfRg: body.perCalfRg,
-      perAbdomem: body.perAbdomem,
-      perWaist: body.perWaist,
-      perHip: body.perHip,
-      perChest: body.perChest,
-      perShoulder: body.perShoulder,
-      skinSubscapular: body.skinSubscapular,
-      skinTriceps: body.skinTriceps,
-      skinMidaxillary: body.skinMidaxillary,
-      skinChest: body.skinChest,
-      skinSuprailiac: body.skinSuprailiac,
-      skinAbdominal: body.skinAbdominal,
-      skinThigh: body.skinThigh,
-      height: body.height,
-      weight: body.weight,
-      years: body.years,
+      idEvaluated: body.evaluatedId,
+      perRelaxBicLf: review.perBicRelaxLf,
+      perRelaxBicRg: review.perBicRelaxRg,
+      perContBicLf: review.perBicContLf,
+      perContBicRg: review.perBicContRg,
+      perForamrLf: review.perForarmLf,
+      perForamrRg: review.perForarmRg,
+      perThighHighLf: review.perThighHighLf,
+      perThighHighRg: review.perThighHighRg,
+      perThighMidLf: review.perThighMidLf,
+      perThighMidRg: review.perThighMidRg,
+      perThighLowLf: review.perThighLowLf,
+      perThighLowRg: review.perThighLowRg,
+      perCalfLf: review.perCalfLf,
+      perCalfRg: review.perCalfRg,
+      perAbdomem: review.perAbdomem,
+      perWaist: review.perWaist,
+      perHip: review.perHip,
+      perChest: review.perChest,
+      perShoulder: review.perShoulder,
+      skinSubscapular: review.skinSubscapular,
+      skinTriceps: review.skinTriceps,
+      skinMidaxillary: review.skinMidaxillary,
+      skinChest: review.skinChest,
+      skinSuprailiac: review.skinSuprailiac,
+      skinAbdominal: review.skinAbdominal,
+      skinThigh: review.skinThigh,
+      height: review.height,
+      weight: review.weight,
+      years: review.years,
       imc: imc,
-      fatPercent: fatPercent,
+      fatPercent: parseFloat(fatPercent),
       leanWeight: leanWeight,
       fatWeight: fatWeight,
       idealWeight: idealWeight,
