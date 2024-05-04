@@ -3,7 +3,7 @@ import Evaluated from 'App/Models/Evaluated'
 
 export default class EvaluatedsController {
   public async showEvaluated({ response }: HttpContextContract) {
-    const evaluated = await Evaluated.all()
+    const evaluated = await Evaluated.query().preload('reviews')
     response.status(200)
     return {
       Evaluateds: evaluated,
