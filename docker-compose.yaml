@@ -1,0 +1,39 @@
+services:
+  mysql:
+    image: mysql:8.3.0
+    ports:
+      - '3306:3306'
+    command: mysqld --user=root
+    environment:
+      MYSQL_DATABASE: fit_prog_db
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d/
+    networks:
+      - fit_prog
+  redocly:
+    build:
+      context: ./docker/redoc
+      dockerfile: Dockerfile
+    image: redoc
+    volumes:
+      - './documentation:/spec'
+    ports:
+      - '5000:80'
+    networks:
+      - fit_prog
+  app:
+    build:
+      context: .
+      dockerfile: DockerFile
+    ports:
+      - '3000:3333'
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+    networks:
+      - fit_prog
+networks:
+  fit_prog:
+    driver: bridge
