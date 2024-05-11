@@ -1,0 +1,247 @@
+openapi: 3.1.0
+info:
+  title: Fitness Progress BackEnd
+  description: This is a very custom OpenAPI schema
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local
+x-tagGroups:
+  - name: Public Routes
+    tags:
+      - Regional
+      - Domain
+      - IpV6
+paths:
+  /regionals:
+    get:
+      summary: Regional
+      description: This route is used for return the regionals of the system
+      tags:
+        - Regional
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Unique identifier for the regional.
+                  name:
+                    type: string
+                    description: Name the regional.
+                  number:
+                    type: integer
+                    description: Number for code the regional.
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: The date and time of creation of the regional.
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: The date and time of the last update of the regional.
+                example:
+                  - id: 1
+                    name: BBIP
+                    number: 0
+                    created_at: '2024-04-02T14:15:53.000+00:00'
+                    updated_at: '2024-04-02T14:15:53.000+00:00'
+                  - id: 2
+                    name: TSP
+                    number: 1
+                    created_at: '2024-04-02T14:15:53.000+00:00'
+                    updated_at: '2024-04-02T14:15:53.000+00:00'
+                  - id: 3
+                    name: TRJ
+                    number: 2
+                    created_at: '2024-04-02T14:15:53.000+00:00'
+                    updated_at: '2024-04-02T14:15:53.000+00:00'
+  '/domains/{regionalId}':
+    get:
+      summary: Domain
+      description: This route is used for return the domains of the system
+      tags:
+        - Domain
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Unique identifier for the domain.
+                  name:
+                    type: string
+                    description: Name the domain.
+                  number:
+                    type: integer
+                    description: Number for code the domain.
+                  regionalId:
+                    type: integer
+                    description: Number for code the regional of the domain.
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: The date and time of creation of the domain.
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: The date and time of the last update of the domain.
+                  # regional:
+                  #   type: object
+                  #   properties:
+                  #     id:
+                  #       type: integer
+                  #       description: Unique identifier for the regional.
+                  #     name:
+                  #       type: string
+                  #       description: Name the regional.
+                  #     number:
+                  #       type: integer
+                  #       description: Number for code the regional.
+                  #     created_at:
+                  #       type: string
+                  #       format: date-time
+                  #       description: The date and time of creation of the regional.
+                  #     updated_at:
+                  #       type: string
+                  #       format: date-time
+                  #       description: The date and time of the last update of the regional.
+                example:
+                  - id: 52
+                    name: Rio de Janeiro (Capital)
+                    number: 0
+                    regional_id: 1
+                    created_at: '2024-04-02T14:15:53.000+00:00'
+                    updated_at: '2024-04-02T14:15:53.000+00:00'
+                  - id: 53
+                    name: Rio de Janeiro (Cidades Conurbadas)
+                    number: 1
+                    regional_id: 1
+                    created_at: '2024-04-02T14:15:53.000+00:00'
+                    updated_at: '2024-04-02T14:15:53.000+00:00'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A description of the error.
+                  error:
+                    type: string
+                    description: A boolean value if any error that occurred during the get operation.
+                example:
+                  message: 'Regional not found'
+                  error: true
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description:
+                  error:
+                    type: boolean
+                    description:
+                example:
+                  message: 'Error looking for the domains'
+                  error: true
+  /ipv6:
+    post:
+      summary: IpV6
+      operationId: ipv6_post
+      tags:
+        - IpV6
+      IpV6:
+        - HTTPBearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domainId:
+                  type: integer
+                  description: Id of the domain
+                regionalId:
+                  type: integer
+                  description: Id of the regional
+              required:
+                - domainId
+                - regionalId
+              example:
+                domainId: 1
+                regionalId: 1
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ipv6Address:
+                    type: string
+                    description: The IpV6 Address generetade with the regional and domain in hexadecimal
+                  message:
+                    type: string
+                    description: A message of the operation status
+                example:
+                  ipv6Address: 'FC00:0001:02/37'
+                  message: 'Ipv6 created successfully'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    description:
+                    properties:
+                      message:
+                      type: string
+                      description: A description of the unauthorized access attempt.
+                example:
+                  errors: { message: 'E_UNAUTHORIZED_ACCESS: Unauthorized access' }
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    description:
+                    properties:
+                      message:
+                      type: string
+                      description: A description of the errors.
+                example:
+                  errors:
+                    rule: 'exists'
+                    field: 'regionalId'
+                    message: 'exists validation failure'
+components:
+  securitySchemes:
+    HTTPBearer:
+      description: |
+        Generate your JWT when you log in.
+      type: http
+      scheme: bearer
+      bearerFormat: bearer MQ.5ZMFgAwOlCt4uS_36kq1U2s4SDRM7T2mH7VzybrbnT-rCEPulaao666dfyl5
