@@ -118,7 +118,7 @@ export default class Review extends BaseModel {
   public updatedAt: DateTime
 
   @belongsTo(() => Evaluated, {
-    foreignKey: 'idEvaluated'
+    foreignKey: 'idEvaluated',
   })
   public evaluated: BelongsTo<typeof Evaluated>
 }
