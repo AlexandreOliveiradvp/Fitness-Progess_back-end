@@ -14,6 +14,7 @@ export default class extends BaseSchema {
       table.integer('profile_id').unsigned().notNullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
+      table.foreign('profile_id').references('id').inTable('profiles')
     })
   }
 
