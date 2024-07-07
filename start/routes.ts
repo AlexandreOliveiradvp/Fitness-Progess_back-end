@@ -21,13 +21,16 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
+  // Session Routes
+  Route.post('/login', 'SessionController.login')
+  Route.post('/logout', 'SessionController.logout')
   //Evaluated Routes
   Route.get('/evaluated', 'EvaluatedsController.showEvaluated')
   Route.post('/evaluated', 'EvaluatedsController.registerEvaluated')
   Route.delete('/evaluated/:id', 'EvaluatedsController.deleteEvaluated')
   //Reviews Routes
   Route.get('/reviews', 'ReviewsController.showReviews')
-  /* Get by id review and id evaluated */
+  //Get by id review and id evaluated
   Route.get('/reviews/:id', 'ReviewsController.showById')
   Route.get('/reviews/evaluated/:evaluatedId', 'ReviewsController.showByEvaluatedId')
   Route.post('/reviews', 'ReviewsController.registerReview')
